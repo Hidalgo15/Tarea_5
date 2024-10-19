@@ -27,7 +27,7 @@
 
     <div class="text-center mb-3">
         <button type="submit" class="btn btn-primary">@((esEdicion) ? "Actualizar Plataforma" : "Registrar Plataforma")</button>
-    </div>
+        </div>
 </EditForm>
 </div>
 
@@ -52,8 +52,9 @@
             </tr>
         }
     </tbody>
-</table>
-
+     </table>
+     <button type="button" class="btn btn-danger" @onclick ="Cancelar" style="margin-left: 1500px;">Cancelar</button>
+ 
 @code {
     Plataforma instancia = new Plataforma();
     List<Plataforma> plataformas = new List<Plataforma>(); 
@@ -92,6 +93,9 @@
     {
         instancia = new Plataforma(); 
         esEdicion = false;
+    }
+    private void Cancelar(){
+        NavMan.NavigateTo("/");
     }
 }
 

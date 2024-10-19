@@ -67,6 +67,7 @@
   
     <div class="text-center mb-3">
         <button type="submit" class="btn btn-primary">Registrar</button>
+         <button type="button" class="btn btn-danger" @onclick ="Cancelar">Cancelar</button>
     </div>
 
 </EditForm>
@@ -108,6 +109,11 @@
         await Jc.SaveChangesAsync();
         
         await JSx.InvokeVoidAsync("alert", id.HasValue ? "Se actualizó el personaje" : "Se registró el personaje");
+        NavMan.NavigateTo("/");
+    }
+
+    
+    private void Cancelar(){
         NavMan.NavigateTo("/");
     }
 }
