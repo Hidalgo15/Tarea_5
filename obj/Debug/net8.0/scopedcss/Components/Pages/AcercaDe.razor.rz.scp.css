@@ -1,3 +1,9 @@
+.container[b-19oa4kuytr]{
+    background-color: whitesmoke;
+    align-items: left;
+    height: 200px;
+}
+
 .text-center[b-19oa4kuytr] {
     display: flex;
     align-items: center;
@@ -21,7 +27,7 @@
 .img-top-right[b-19oa4kuytr] {
     position: absolute;
     top: 35px;
-    right: 250px; /* Ajusta este valor para controlar la distancia desde la derecha */
+    right: 400px; /* Ajusta este valor para controlar la distancia desde la derecha */
     width: 150px;
-    margin-top: 210px;
+    margin-top: 85px;
 }

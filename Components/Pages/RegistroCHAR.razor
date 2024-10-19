@@ -9,6 +9,10 @@
 
 <h2 class="text-center">Registros de personajes</h2>
 
+ <td>
+        <img id="FotoPersonaje" src="@instancia.Imagen_Personaje" alt="@instancia.Nombre"  />
+    </td>
+    
 <div class="container">
 <EditForm Model="instancia" OnValidSubmit="Guardar_Personaje">
     <DataAnnotationsValidator />
@@ -60,12 +64,16 @@
         <input type="url" id="Imagen" class="form-control" @bind="instancia.Imagen_Personaje"/>
     </div>
 
+  
     <div class="text-center mb-3">
         <button type="submit" class="btn btn-primary">Registrar</button>
     </div>
 
 </EditForm>
 </div>
+   
+ 
+ 
 
 @code {
     Personajes_Videojuegos instancia = new Personajes_Videojuegos();

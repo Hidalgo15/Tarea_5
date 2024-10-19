@@ -208,3 +208,16 @@ td{
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
+
+#FotoPersonaje{
+width: 100px;
+height: auto;
+margin-left: 500px;
+}
+
+#fotoPortada{
+width: 150px;
+height: auto;
+margin-left: 400px;
+}

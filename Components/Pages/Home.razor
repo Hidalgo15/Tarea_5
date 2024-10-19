@@ -59,7 +59,7 @@
                                     <img src="@personaje.Imagen_Personaje" alt="@personaje.Nombre" style="width: 50px; height: auto;" />
                                 </td>
                                 <td>
-                                    <button @onclick="() => Editar_Personaje(personaje)" class="btn btn-success">Editar Personaje</button>
+                                    <button @onclick="() => EditarPersonaje(personaje)" class="btn btn-success">Editar Personaje</button>
                                 </td>
                             </tr>
                         }
@@ -87,7 +87,7 @@
     {
         if (SelectedVideojuego != null)
         {
-            NavMan.NavigateTo($"/Registro_VJ/{SelectedVideojuego.VideojuegosId}");
+            NavMan.NavigateTo($"/RegistroGA/{SelectedVideojuego.VideojuegosId}");
         }
     }
 
@@ -103,8 +103,8 @@
         SelectedVideojuego = null;
     }
 
-    private void Editar_Personaje(Personajes_Videojuegos personaje)
+    private void EditarPersonaje(Personajes_Videojuegos personaje)
     {
-        NavMan.NavigateTo($"/Registro_P/{personaje.Personajes_VideojuegosId}");
+        NavMan.NavigateTo($"/RegistroCHAR/{personaje.Personajes_VideojuegosId}");
     }
 }

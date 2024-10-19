@@ -8,6 +8,11 @@
 
 <h2 class="text-center">@((instancia.VideojuegosId == 0) ? "Registra un videojuego" : "Editar un videojuego")</h2>
 
+<td>
+<img id ="fotoPortada" class="card-img" src="@instancia.Imagen_Portada" alt="@instancia.Nombre" />
+  
+</td>
+            
 <div class="container">
 <EditForm Model="instancia" OnValidSubmit="Guardar_Registro">
     <DataAnnotationsValidator />
