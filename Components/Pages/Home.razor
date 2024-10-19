@@ -1,0 +1,110 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject NavigationManager NavMan
+@inject IJSRuntime JSx
+@inject JuegosContext Jc
+@using Microsoft.EntityFrameworkCore;
+
+<h1 class="text-center mb-3">Catalogo</h1>
+
+<div class="row">
+    @foreach (var videojuego in videojuegos)
+    {
+        <div class="col-md-3 mb-3">
+            <div class="card" @onclick="() => ShowPopup(videojuego)">
+                <img class="card-img" src="@videojuego.Imagen_Portada" alt="@videojuego.Nombre" />
+            </div>
+        </div>
+    }
+</div>
+
+@if (IsPopupVisible && SelectedVideojuego != null)
+{
+    <div class="popup-overlay" @onclick="HidePopup">
+        <div class="popup-content" @onclick:stopPropagation>
+            <h4>@SelectedVideojuego.Nombre</h4>
+            <p><strong>Desarrollador:</strong> @SelectedVideojuego.Desarrollador</p>
+            <p><strong>Plataforma:</strong> @SelectedVideojuego.Plataforma?.Nombre</p>
+            <p><strong>Género:</strong> @SelectedVideojuego.Genero</p>
+            <p><strong>Fecha de lanzamiento:</strong> @SelectedVideojuego.Fecha_Lanzamiento.ToShortDateString()</p>
+            <p><strong>Descripción:</strong> @SelectedVideojuego.Descripcion</p>
+            <button @onclick="Editar_Videojuego" class="btn btn-success">Editar videojuego</button>
+
+            <h5>Personajes del juego:</h5>
+            <div class="popup-table-container">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th><strong>Nombre</strong></th>
+                            <th><strong>Alias</strong></th>
+                            <th><strong>Rol</strong></th>
+                            <th><strong>Habilidad Especial</strong></th>
+                            <th><strong>Arma Favorita</strong></th>
+                            <th><strong>Nivel de poder</strong></th>
+                            <th><strong>Foto</strong></th>
+                            <th>Modificar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var personaje in SelectedVideojuego.Personajes)
+                        {
+                            <tr>
+                                <td>@personaje.Nombre</td>
+                                <td>@personaje.Alias</td>
+                                <td>@personaje.Rol</td>
+                                <td>@personaje.Habilidad_Especial</td>
+                                <td>@personaje.Arma_Favorita</td>
+                                <td>@personaje.Nivel_Poder</td>
+                                <td>
+                                    <img src="@personaje.Imagen_Personaje" alt="@personaje.Nombre" style="width: 50px; height: auto;" />
+                                </td>
+                                <td>
+                                    <button @onclick="() => Editar_Personaje(personaje)" class="btn btn-success">Editar Personaje</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="btn btn-danger" @onclick="HidePopup">Cerrar</button>
+        </div>
+    </div>
+}
+
+
+@code {
+    List<Videojuegos> videojuegos = new List<Videojuegos>();
+    Videojuegos? SelectedVideojuego { get; set; } = null;
+    bool IsPopupVisible { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        videojuegos = await Jc.Videojuegos.Include(v => v.Personajes).Include(v => v.Plataforma).ToListAsync();
+    }
+
+    private void Editar_Videojuego()
+    {
+        if (SelectedVideojuego != null)
+        {
+            NavMan.NavigateTo($"/Registro_VJ/{SelectedVideojuego.VideojuegosId}");
+        }
+    }
+
+    void ShowPopup(Videojuegos videojuego)
+    {
+        SelectedVideojuego = videojuego;
+        IsPopupVisible = true;
+    }
+
+    void HidePopup()
+    {
+        IsPopupVisible = false;
+        SelectedVideojuego = null;
+    }
+
+    private void Editar_Personaje(Personajes_Videojuegos personaje)
+    {
+        NavMan.NavigateTo($"/Registro_P/{personaje.Personajes_VideojuegosId}");
+    }
+}
